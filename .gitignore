@@ -1,0 +1,8 @@
+.env
+*.mp3
+*.webm
+*.m4a
+*.zip
+ffmpeg
+__pycache__/
+*.log

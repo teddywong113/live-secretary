@@ -1,0 +1,2 @@
+45 9 * * 1-5 cd /Users/teddywong/.gemini/antigravity-ide/scratch/trading_alert && /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 preflight_check.py >> /Users/teddywong/.gemini/antigravity-ide/scratch/trading_alert/cron.log 2>&1
+0 10 * * 1-5 cd /Users/teddywong/.gemini/antigravity-ide/scratch/trading_alert && /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 live_secretary.py >> /Users/teddywong/.gemini/antigravity-ide/scratch/trading_alert/cron.log 2>&1

@@ -1,0 +1,4 @@
+yt-dlp>=2024.4.9
+python-dotenv>=1.0.1
+google-genai>=0.2.0
+requests>=2.31.0
