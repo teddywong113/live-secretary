@@ -100,10 +100,13 @@ def analyze_audio_chunk(client, audio_file):
     - 標普期貨 (ES)
     You MUST explicitly extract and write down the EXACT numerical figures mentioned for their entry points (買賣點), targets, and stop-loss levels (止損位). DO NOT just say "trading strategies were provided" without giving the actual numbers. If they mention numbers, write them down!
     
+    CRITICAL REQUIREMENT 3 (NO GENERIC SUMMARIES):
+    NEVER output a meta-summary in English like "This is a detailed dialogue transcript...". You MUST output the actual dialogue lines in Cantonese. If you run out of time, stop gracefully, but DO NOT resort to a high-level summary.
+    
     1. Output your response as a detailed, chronological dialogue transcript.
-    2. ALWAYS return status 'FOUND_TOPIC' (unless the show is ending). 
+    2. ALWAYS return status 'FOUND_TOPIC' (unless the segment is ending). 
     3. MUST be written in fluent Traditional Chinese (繁體中文).
-    4. If the host is clearly saying goodbye, wrapping up the show, or ending the broadcast, return 'END_OF_SHOW'.
+    4. If you hear the transition scene (過場片段) music that marks the end of the "文錦期權譜" segment, return 'END_OF_SHOW'.
     """
     
     response_schema = {
@@ -174,9 +177,10 @@ def detect_show_start(client, audio_file):
     print("Checking if show has started...")
     prompt = """
     Listen to this short audio chunk from a live broadcast. 
-    Does it contain the start of the show? The show always starts with the hosts saying "早晨早晨", and then "早晨文錦sir" or "早晨各位網友".
-    If you hear these greetings, or if the main financial discussion has clearly started, return 'STARTED'.
-    If it is just pre-show holding music, silence, ads, or waiting, return 'WAITING'.
+    Does it contain the start of the "文錦期權譜" (Man Kam Options Strategy) segment? 
+    This specific segment ALWAYS starts with a unique theme jingle (specific music with sound effects) rather than someone just talking.
+    If you hear this specific theme music playing, return 'STARTED'.
+    If you only hear the hosts chatting generally, waiting music, or silence, return 'WAITING'.
     """
     
     response_schema = {
