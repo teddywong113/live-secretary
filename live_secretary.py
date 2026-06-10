@@ -86,17 +86,23 @@ def analyze_audio_chunk(client, audio_file):
         
     print("Analyzing audio (Secretary Mode)...")
     prompt = """
-    You are a highly professional financial secretary taking exhaustive, accurate meeting minutes for a live trading broadcast.
+    You are a highly professional financial secretary transcribing a live trading broadcast.
     Listen to the provided 15-minute audio chunk carefully. The broadcast is in Cantonese/Chinese.
-    Pay special attention to the segment "文錦期權譜" (Man Kam Options Strategy).
     
-    Your task is to report EVERYTHING discussed in this 15-minute window in chronological order. Do NOT compress, filter, or omit information. 
-    - For financial topics: record every single stock name, ticker, target price, entry/exit point, market bias, and the exact reasoning of the host.
-    - For off-topic or casual conversations: record exactly what they are chatting about in detail.
+    CRITICAL REQUIREMENT 1 (Dialogue Style): 
+    Instead of a high-level summary, output the content in a detailed DIALOGUE or CHAT style. 
+    Capture exactly what the hosts are saying to each other as a chronological transcript of their conversation (e.g., "主持人A: ... \n 主持人B: ..."). Do not compress or omit their conversation.
     
-    1. Output your response as a highly detailed, chronological bulleted list (meeting minutes format).
+    CRITICAL REQUIREMENT 2 (Exact Figures for Indexes):
+    Pay extreme attention to the "文錦期權譜" (Man Kam Options Strategy) segment, specifically for:
+    - 恆生指數期貨 (HSI Futures / 期指)
+    - 納斯達克期貨 (NQ)
+    - 標普期貨 (ES)
+    You MUST explicitly extract and write down the EXACT numerical figures mentioned for their entry points (買賣點), targets, and stop-loss levels (止損位). DO NOT just say "trading strategies were provided" without giving the actual numbers. If they mention numbers, write them down!
+    
+    1. Output your response as a detailed, chronological dialogue transcript.
     2. ALWAYS return status 'FOUND_TOPIC' (unless the show is ending). 
-    3. The meeting minutes MUST be written in fluent Traditional Chinese (繁體中文).
+    3. MUST be written in fluent Traditional Chinese (繁體中文).
     4. If the host is clearly saying goodbye, wrapping up the show, or ending the broadcast, return 'END_OF_SHOW'.
     """
     
